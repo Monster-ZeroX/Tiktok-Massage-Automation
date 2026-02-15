@@ -1,10 +1,9 @@
 {
     "targets": [
-        "its_dracow",
-        "dxvya_22",
-        "dev_.lucy"
+        "user1",
+        "user2"
     ],
-    "message": "Hello!",
+    "message": "Test message",
     "headless": false,
     "telegram": {
         "botToken": "1872662728:AAFBXRRib-k0v6NHmTov45u4msGPePqNE4s",

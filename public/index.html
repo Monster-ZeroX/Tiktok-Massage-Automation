@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Automation Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>TikTok <span>Automation</span></h1>
+
+        <div class="card">
+            <h2>Configuration</h2>
+            <form id="configForm">
+                <label for="targets">Target Users (comma separated)</label>
+                <input type="text" id="targets" placeholder="username1, username2" required>
+
+                <label for="message">Message</label>
+                <textarea id="message" rows="4" required></textarea>
+
+                <button type="submit">Save Configuration</button>
+                <div id="configStatus" class="status-msg"></div>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Actions</h2>
+            <button onclick="triggerRun()" id="runBtn">Run Automation Now</button>
+            <div id="runStatus" class="status-msg"></div>
+        </div>
+
+        <div class="card">
+            <h2>Live Logs <button class="secondary refresh-btn" onclick="fetchLogs()">Refresh</button></h2>
+            <div id="logs-container">
+                Loading logs...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchConfig() {
+            try {
+                const res = await fetch('/api/config');
+                const data = await res.json();
+                if (data.targets) {
+                    document.getElementById('targets').value = data.targets.join(', ');
+                }
+                if (data.message) {
+                    document.getElementById('message').value = data.message;
+                }
+            } catch (e) {
+                console.error('Error fetching config:', e);
+            }
+        }
+
+        async function saveConfig(e) {
+            e.preventDefault();
+            const targetsStr = document.getElementById('targets').value;
+            const message = document.getElementById('message').value;
+            const targets = targetsStr.split(',').map(t => t.trim()).filter(t => t);
+
+            try {
+                const res = await fetch('/api/config', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ targets, message })
+                });
+                const result = await res.json();
+
+                const statusEl = document.getElementById('configStatus');
+                statusEl.style.display = 'block';
+                if (result.success) {
+                    statusEl.textContent = 'Configuration saved successfully!';
+                    statusEl.className = 'status-msg success';
+                    setTimeout(() => statusEl.style.display = 'none', 3000);
+                } else {
+                    statusEl.textContent = 'Error: ' + result.error;
+                    statusEl.className = 'status-msg error';
+                }
+            } catch (e) {
+                alert('Failed to save config');
+            }
+        }
+
+        async function triggerRun() {
+            const btn = document.getElementById('runBtn');
+            btn.disabled = true;
+            btn.textContent = 'Running...';
+
+            try {
+                const res = await fetch('/api/run', { method: 'POST' });
+                const result = await res.json();
+
+                const statusEl = document.getElementById('runStatus');
+                statusEl.style.display = 'block';
+                statusEl.textContent = result.message;
+                statusEl.className = 'status-msg success';
+                setTimeout(() => {
+                    statusEl.style.display = 'none';
+                    btn.disabled = false;
+                    btn.textContent = 'Run Automation Now';
+                }, 5000);
+
+                // Start polling logs
+                fetchLogs();
+            } catch (e) {
+                alert('Failed to trigger run');
+                btn.disabled = false;
+                btn.textContent = 'Run Automation Now';
+            }
+        }
+
+        async function fetchLogs() {
+            try {
+                const res = await fetch('/api/logs');
+                const logs = await res.json();
+
+                const container = document.getElementById('logs-container');
+                container.innerHTML = '';
+
+                logs.forEach(log => {
+                    if (!log) return;
+                    const div = document.createElement('div');
+                    div.className = 'log-entry';
+
+                    // Construct log line
+                    let content = `<span class="log-timestamp">[${log.timestamp || ''}]</span>`;
+                    content += `<span class="log-level ${log.level}">${(log.level || 'INFO').toUpperCase()}</span>: `;
+                    content += log.message;
+
+                    div.innerHTML = content;
+                    container.appendChild(div);
+                });
+            } catch (e) {
+                console.error('Error logs:', e);
+            }
+        }
+
+        document.getElementById('configForm').addEventListener('submit', saveConfig);
+
+        // Init
+        fetchConfig();
+        fetchLogs();
+
+        // Auto refresh logs every 5s
+        setInterval(fetchLogs, 5000);
+    </script>
+
+</body>
+
+</html>

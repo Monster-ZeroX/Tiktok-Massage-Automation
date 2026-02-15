@@ -64,13 +64,33 @@ To run the automation immediately:
 npm start
 ```
 
-### 3. Schedule Mode
+### 4. Web Dashboard
 
-To keep the script running and execute tasks at 9 AM and 5 PM daily:
+To start the Web Dashboard for managing targets and viewing logs:
 
 ```bash
-npm run schedule
+npm run dashboard
 ```
+
+- Open `http://localhost:3000` in your browser.
+- You can update configuration and trigger automation runs from the UI.
+
+### 5. Docker
+
+To run the application using Docker:
+
+1.  **Build the image**:
+    ```bash
+    docker-compose build
+    ```
+
+2.  **Run the container**:
+    ```bash
+    docker-compose up -d
+    ```
+
+- The dashboard will be available at `http://localhost:3000`.
+- Volumes are mounted so `config.json`, `cookies.json`, and `logs` persist.
 
 ## Configuration
 

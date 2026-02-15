@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  tiktok-bot:
+    build: .
+    container_name: tiktok-automation
+    volumes:
+      - ./config.json:/usr/src/app/config.json
+      - ./cookies.json:/usr/src/app/cookies.json
+      - ./logs:/usr/src/app/logs
+      - ./.env:/usr/src/app/.env
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    # Interactive mode required for potential manual login debugging (though hard in docker)
+    stdin_open: true
+    tty: true
