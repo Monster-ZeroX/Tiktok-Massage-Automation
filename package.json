@@ -1,0 +1,27 @@
+{
+  "name": "tiktok-automation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "login": "node src/index.js login",
+    "schedule": "node src/index.js schedule",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": "A robust, production-ready Node.js automation bot for TikTok messaging.",
+  "dependencies": {
+    "axios": "^1.13.5",
+    "dotenv": "^17.3.1",
+    "node-cron": "^4.2.1",
+    "puppeteer": "^24.37.3",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "winston": "^3.19.0"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
+}

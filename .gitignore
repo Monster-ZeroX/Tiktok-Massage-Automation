@@ -1,0 +1,6 @@
+node_modules/
+.env
+logs/
+cookies.json
+.DS_Store
+coverage/

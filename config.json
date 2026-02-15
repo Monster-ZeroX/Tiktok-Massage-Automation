@@ -1,0 +1,13 @@
+{
+    "targets": [
+        "its_dracow",
+        "dxvya_22",
+        "dev_.lucy"
+    ],
+    "message": "Hello!",
+    "headless": false,
+    "telegram": {
+        "botToken": "1872662728:AAFBXRRib-k0v6NHmTov45u4msGPePqNE4s",
+        "chatId": "1204360944"
+    }
+}

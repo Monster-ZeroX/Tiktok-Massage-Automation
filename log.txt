@@ -1,0 +1,43 @@
+Navigate to TikTok Home for session check...
+Session valid.
+Processing user: its_dracow
+Clicked message button...
+Message sent to its_dracow
+Processing user: dxvya_22
+Clicked message button...
+Message sent to dxvya_22
+Processing user: dev_.lucy
+Clicked message button...
+Message sent to dev_.lucy
+Telegram notification sent.
+All done.
+c:\Web Projects\Tiktok-Automation\node_modules\puppeteer-core\lib\cjs\puppeteer\node\BrowserLauncher.js:334
+                    throw new Error(`Could not find Chrome (ver. ${this.puppeteer.browserVersion}). This can occur if either\n` +
+                          ^
+
+Error: Could not find Chrome (ver. 145.0.7632.67). This can occur if either
+ 1. you did not perform an installation before running the script (e.g. `npx puppeteer browsers install chrome`) or
+ 2. your cache path is incorrectly configured (which is: C:\Windows\system32\config\systemprofile\.cache\puppeteer).
+For (2), check out our guide on configuring puppeteer at https://pptr.dev/guides/configuration.
+    at ChromeLauncher.resolveExecutablePath (c:\Web Projects\Tiktok-Automation\node_modules\puppeteer-core\lib\cjs\puppeteer\node\BrowserLauncher.js:334:27)
+    at ChromeLauncher.computeLaunchArguments (c:\Web Projects\Tiktok-Automation\node_modules\puppeteer-core\lib\cjs\puppeteer\node\ChromeLauncher.js:94:24)
+    at ChromeLauncher.launch (c:\Web Projects\Tiktok-Automation\node_modules\puppeteer-core\lib\cjs\puppeteer\node\BrowserLauncher.js:85:39)
+    at ChromeLauncher.launch (c:\Web Projects\Tiktok-Automation\node_modules\puppeteer-core\lib\cjs\puppeteer\node\ChromeLauncher.js:46:22)
+    at PuppeteerNode.launch (c:\Web Projects\Tiktok-Automation\node_modules\puppeteer-core\lib\cjs\puppeteer\node\PuppeteerNode.js:141:31)
+    at PuppeteerExtra.launch (c:\Web Projects\Tiktok-Automation\node_modules\puppeteer-extra\dist\index.cjs.js:128:41)
+    at async c:\Web Projects\Tiktok-Automation\send_dms.js:25:21
+
+Node.js v20.9.0
+Navigate to TikTok Home for session check...
+Session valid.
+Processing user: its_dracow
+Clicked message button...
+Message sent to its_dracow
+Processing user: dxvya_22
+Clicked message button...
+Message sent to dxvya_22
+Processing user: dev_.lucy
+Clicked message button...
+Message sent to dev_.lucy
+Telegram notification sent.
+All done.
